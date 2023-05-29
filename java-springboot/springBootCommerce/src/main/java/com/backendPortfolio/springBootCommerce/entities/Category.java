@@ -14,6 +14,7 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Transient
     private Set<Product> products = new HashSet<>();
 
     public Category() {

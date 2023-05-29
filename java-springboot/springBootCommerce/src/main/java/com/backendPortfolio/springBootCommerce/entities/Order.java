@@ -8,6 +8,8 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
@@ -25,6 +27,8 @@ public class Order implements Serializable {
     private User client;
 
     private Integer orderStatus;
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Order() {
     }
@@ -36,12 +40,13 @@ public class Order implements Serializable {
         setOrderStatus(orderStatus);
     }
 
+
     public OrderStatus getOrderStatus() {
         return OrderStatus.valueOf(orderStatus);
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {
-        if(orderStatus!=null) {
+        if (orderStatus != null) {
             this.orderStatus = orderStatus.getCode();
         }
     }
@@ -69,7 +74,9 @@ public class Order implements Serializable {
     public void setClient(User client) {
         this.client = client;
     }
-
+ public Set<OrderItem> getItems(){
+        return items;
+ }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

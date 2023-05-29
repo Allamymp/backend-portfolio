@@ -1,6 +1,7 @@
 package com.backendPortfolio.springBootCommerce.entities;
 
 import com.backendPortfolio.springBootCommerce.entities.pk.OrderItemPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 @Table(name="tb_order_item")
 public class OrderItem implements Serializable {
     @EmbeddedId
-    private OrderItemPK id;
+    private OrderItemPK id = new OrderItemPK();
     private Integer quantity;
     private Double price;
 
@@ -24,6 +25,7 @@ public class OrderItem implements Serializable {
         this.quantity = quantity;
         this.price = price;
     }
+    @JsonIgnore
    public  Order getOrder(){
         return id.getOrder();
    }

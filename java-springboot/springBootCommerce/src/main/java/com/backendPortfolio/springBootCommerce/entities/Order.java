@@ -1,5 +1,6 @@
 package com.backendPortfolio.springBootCommerce.entities;
 
+import com.backendPortfolio.springBootCommerce.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
@@ -23,13 +24,24 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id")
     private User client;
 
+    private OrderStatus orderStatus;
+
     public Order() {
     }
 
-    public Order(Long id, Instant moment, User client) {
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;
         this.client = client;
+        this.orderStatus =  orderStatus;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public Long getId() {

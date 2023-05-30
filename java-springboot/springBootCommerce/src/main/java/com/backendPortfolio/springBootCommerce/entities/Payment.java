@@ -1,6 +1,7 @@
 package com.backendPortfolio.springBootCommerce.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.id.factory.internal.AutoGenerationTypeStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ public class Payment implements Serializable {
 
     @OneToOne
     @MapsId
+    @JsonIgnore
     private Order order;
 
     public Payment() {

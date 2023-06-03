@@ -2,6 +2,7 @@ package com.backendPortfolio.springBootCommerce.services;
 
 import com.backendPortfolio.springBootCommerce.entities.User;
 import com.backendPortfolio.springBootCommerce.repositories.UserRepository;
+import com.backendPortfolio.springBootCommerce.services.exceptions.ResourceNotFindException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ public class UserService {
     }
     public User findById(Long id){
         Optional<User> obj =  repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(()->new ResourceNotFindException(id));
     }
     public User insert(User obj){
         return repository.save(obj);

@@ -1,7 +1,7 @@
 package com.backendPortfolio.springBootCommerce.services.exceptions;
 
-public class ResourceNotFindException extends RuntimeException {
-    public ResourceNotFindException(Object id){
+public class ResourceNotFoundException extends RuntimeException {
+    public ResourceNotFoundException(Object id){
         super("Resource not found. Id: "+ id );
     }
 }

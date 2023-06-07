@@ -15,12 +15,15 @@ public class Collaborators implements Serializable {
     private String phone;
     private String address;
     private Sector sector;
-    private Contract contract;
-
+    @OneToMany
+    @JoinColumn(name = "contract_id")
+    private Contracts contract;
+    private Double salary;
     public Collaborators() {
     }
 
-    public Collaborators(Long id, String name, String phone, String address, Sector sector, Contract contract) {
+    public Collaborators(Long id, String name, String phone, String address, Sector sector, Contracts contract,
+                         Double salary) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -69,11 +72,11 @@ public class Collaborators implements Serializable {
         this.sector = sector;
     }
 
-    public Contract getContract() {
+    public Contracts getContract() {
         return contract;
     }
 
-    public void setContract(Contract contract) {
+    public void setContract(Contracts contract) {
         this.contract = contract;
     }
 

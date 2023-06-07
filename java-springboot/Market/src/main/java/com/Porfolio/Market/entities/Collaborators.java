@@ -19,6 +19,7 @@ public class Collaborators implements Serializable {
     @JoinColumn(name = "contract_id")
     private Contracts contract;
     private Double salary;
+    private LocalDate lastVacation;
     public Collaborators() {
     }
 
@@ -30,6 +31,7 @@ public class Collaborators implements Serializable {
         this.address = address;
         this.sector = sector;
         this.contract = contract;
+        this.lastVacation = contract.getSignDate();
     }
 
     public Long getId() {
@@ -78,6 +80,22 @@ public class Collaborators implements Serializable {
 
     public void setContract(Contracts contract) {
         this.contract = contract;
+    }
+
+    public Double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+
+    public LocalDate getLastVacation() {
+        return lastVacation;
+    }
+
+    public void setLastVacation(LocalDate lastVacation) {
+        this.lastVacation = lastVacation;
     }
 
     @Override

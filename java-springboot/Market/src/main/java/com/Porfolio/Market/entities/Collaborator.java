@@ -1,9 +1,14 @@
 package com.Porfolio.Market.entities;
 
+import com.Porfolio.Market.entities.enums.Sector;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_collaborators")
@@ -14,24 +19,25 @@ public class Collaborators implements Serializable {
     private String name;
     private String phone;
     private String address;
-    private Sector sector;
+    private int sector;
     @OneToMany
-    @JoinColumn(name = "contract_id")
-    private Contracts contract;
-    private Double salary;
+    @JsonIgnore
+    private Set<Contracts> contract = new HashSet<>();
+    private BigDecimal salary;
     private LocalDate lastVacation;
+
     public Collaborators() {
     }
 
-    public Collaborators(Long id, String name, String phone, String address, Sector sector, Contracts contract,
-                         Double salary) {
+    public Collaborators(Long id, String name, String phone, String address, int sector, Contracts contract,
+                         BigDecimal salary) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.sector = sector;
-        this.contract = contract;
-        this.lastVacation = contract.getSignDate();
+        this.contract.add(contract);
+        // this.lastVacation = contract.getSignDate();
     }
 
     public Long getId() {
@@ -66,27 +72,24 @@ public class Collaborators implements Serializable {
         this.address = address;
     }
 
-    public Sector getSector() {
+    public int getSector() {
         return sector;
     }
 
-    public void setSector(Sector sector) {
+    public void setSector(int sector) {
         this.sector = sector;
     }
 
-    public Contracts getContract() {
+    public Set<Contracts> getItems() {
         return contract;
     }
 
-    public void setContract(Contracts contract) {
-        this.contract = contract;
-    }
 
-    public Double getSalary() {
+    public BigDecimal getSalary() {
         return salary;
     }
 
-    public void setSalary(Double salary) {
+    public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
 

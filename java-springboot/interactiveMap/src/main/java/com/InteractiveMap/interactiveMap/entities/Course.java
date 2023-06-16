@@ -7,30 +7,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "tb_teacher")
-public class Teacher implements Serializable {
+@Table(name = "tb_course")
+public class Course implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
-
-    @ManyToOne
-    @JoinColumn(name = "course_id")
-    private Course course;
-    private String location;
+    private String phone;
+    @OneToOne
+    @JoinColumn(name = "director_id")
+    private Teacher director;
+    private List<Teacher> teacherList = new ArrayList<>();
     private List<Classes> classesList = new ArrayList<>();
 
-    public Teacher() {
+
+    public Course() {
     }
 
-    public Teacher(Long id, String name, String email, Course course, List<Classes> classesList, String location) {
+    public Course(Long id, String name, String email, String phone, Teacher director, List<Teacher> teacherList, List<Classes> classesList) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.course = course;
+        this.phone = phone;
+        this.director = director;
+        this.teacherList = teacherList;
         this.classesList = classesList;
-        this.location = location;
     }
 
     public Long getId() {
@@ -57,12 +59,20 @@ public class Teacher implements Serializable {
         this.email = email;
     }
 
-    public Course getCourse() {
-        return course;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public List<Teacher> getTeacherList() {
+        return teacherList;
+    }
+
+    public void setTeacherList(List<Teacher> teacherList) {
+        this.teacherList = teacherList;
     }
 
     public List<Classes> getClassesList() {
@@ -73,20 +83,20 @@ public class Teacher implements Serializable {
         this.classesList = classesList;
     }
 
-    public String getLocation() {
-        return location;
+    public Teacher getDirector() {
+        return director;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setDirector(Teacher director) {
+        this.director = director;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Teacher teacher)) return false;
+        if (!(o instanceof Course course)) return false;
 
-        return getId().equals(teacher.getId());
+        return getId().equals(course.getId());
     }
 
     @Override

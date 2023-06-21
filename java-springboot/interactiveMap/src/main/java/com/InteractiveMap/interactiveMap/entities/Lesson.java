@@ -1,9 +1,9 @@
 package com.InteractiveMap.interactiveMap.entities;
 
+import com.InteractiveMap.interactiveMap.entities.enums.WeekEnum;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -21,11 +21,13 @@ public class Lesson implements Serializable {
     private LocalTime startHour;
     @Column(name = "end_hour", columnDefinition = "TIME")
     private LocalTime endHour;
+    private WeekEnum weekday;
+
 
     public Lesson() {
     }
 
-    public Lesson(Long id, String name, Teacher teacher, LocalTime startHour) {
+    public Lesson(Long id, String name, Teacher teacher, LocalTime startHour,WeekEnum weekday) {
         this.id = id;
         this.name = name;
         this.teacher = teacher;
@@ -80,6 +82,14 @@ public class Lesson implements Serializable {
 
     public void setEndHour(LocalTime endHour) {
         this.endHour = endHour.plusMinutes(45);
+    }
+
+    public WeekEnum getWeekday() {
+        return weekday;
+    }
+
+    public void setWeekday(WeekEnum weekday) {
+        this.weekday = weekday;
     }
 
     @Override

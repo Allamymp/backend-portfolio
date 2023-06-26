@@ -21,7 +21,7 @@ public class Lesson implements Serializable {
     private LocalTime startHour;
     @Column(name = "end_hour", columnDefinition = "TIME")
     private LocalTime endHour;
-    private WeekEnum weekday;
+    private Integer weekday;
     private String location;
 
     public Lesson() {
@@ -33,7 +33,7 @@ public class Lesson implements Serializable {
         this.teacher = teacher;
         this.teacherName = teacher.getName();
         this.startHour = startHour;
-        this.weekday = weekday;
+        setWeekday(weekday);
         this.location = location;
        setEndHour(startHour);
     }
@@ -95,11 +95,13 @@ public class Lesson implements Serializable {
     }
 
     public WeekEnum getWeekday() {
-        return weekday;
+        return WeekEnum.valueOf(weekday);
     }
 
     public void setWeekday(WeekEnum weekday) {
-        this.weekday = weekday;
+        if(weekday!= null){
+        this.weekday = weekday.getCode();
+        }
     }
 
     @Override

@@ -22,18 +22,28 @@ public class Lesson implements Serializable {
     @Column(name = "end_hour", columnDefinition = "TIME")
     private LocalTime endHour;
     private WeekEnum weekday;
-
+    private String location;
 
     public Lesson() {
     }
 
-    public Lesson(Long id, String name, Teacher teacher, LocalTime startHour,WeekEnum weekday) {
+    public Lesson(Long id, String name, Teacher teacher, LocalTime startHour,WeekEnum weekday,String location) {
         this.id = id;
         this.name = name;
         this.teacher = teacher;
         this.teacherName = teacher.getName();
         this.startHour = startHour;
+        this.weekday = weekday;
+        this.location = location;
        setEndHour(startHour);
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Long getId() {

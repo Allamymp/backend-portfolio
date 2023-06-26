@@ -1,5 +1,6 @@
 package com.InteractiveMap.interactiveMap.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ public class Teacher implements Serializable {
     private String name;
     private String email;
     @OneToMany(mappedBy = "teacher")
+    @JsonIgnore
     private List<Lesson> lessonList;
     private String location;
 

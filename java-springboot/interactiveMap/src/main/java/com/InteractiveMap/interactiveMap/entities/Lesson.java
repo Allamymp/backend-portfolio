@@ -1,6 +1,8 @@
 package com.InteractiveMap.interactiveMap.entities;
 
 import com.InteractiveMap.interactiveMap.entities.enums.WeekEnum;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -15,6 +17,8 @@ public class Lesson implements Serializable {
     private String name;
     @ManyToOne
     @JoinColumn(name="teacher_id")
+    @JsonBackReference
+    @JsonIgnoreProperties("lessonList")
     private Teacher teacher;
     private String teacherName;
     @Column(name="start_hour", columnDefinition = "TIME")

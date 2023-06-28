@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class InteractiveMapApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(InteractiveMapApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(InteractiveMapApplication.class, args);
+    }
 
 }

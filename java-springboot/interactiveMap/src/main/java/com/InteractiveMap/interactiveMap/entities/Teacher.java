@@ -1,9 +1,12 @@
 package com.InteractiveMap.interactiveMap.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,18 +18,20 @@ public class Teacher implements Serializable {
     private String name;
     private String email;
     @OneToMany(mappedBy = "teacher")
-    @JsonIgnore
-    private List<Lesson> lessonList;
+    @JsonManagedReference
+    private List<Lesson> lessonList = new ArrayList<>();
     private String location;
+    private boolean specialLocation;
 
     public Teacher() {
     }
 
-    public Teacher(Long id, String name, String email, String location) {
+    public Teacher(Long id, String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.location = location;
+        this.specialLocation = false;
+        this.location = "Null test location";
     }
 
     public Long getId() {
@@ -54,10 +59,15 @@ public class Teacher implements Serializable {
     }
 
     public String getLocation() {
-        return location;
+        if(getSpecialLocation()==true){
+        return location;}
+        return getActualLocation();
     }
 
     public void setLocation(String location) {
+        if(getSpecialLocation()==false){
+            throw new RuntimeException("Please change SpecialLocation to true before changes");
+        }
         this.location = location;
     }
 
@@ -65,8 +75,25 @@ public class Teacher implements Serializable {
         return lessonList;
     }
 
-    public void setLessonList(List<Lesson> lessonList) {
-        this.lessonList = lessonList;
+    public boolean getSpecialLocation() {
+        return specialLocation;
+    }
+
+    public void setSpecialLocation(boolean specialLocation) {
+        this.specialLocation = specialLocation;
+    }
+
+    public String getActualLocation() {
+        LocalTime currentTime = LocalTime.now();
+        for (Lesson lesson : lessonList) {
+            LocalTime startHour = lesson.getStartHour();
+            LocalTime endHour = lesson.getEndHour();
+
+            if (currentTime.isAfter(startHour) && currentTime.isBefore(endHour)) {
+                return lesson.getLocation();
+            }
+        }
+        return "The professor is not in class. Please find him/her at the Course Coordination Office";
     }
 
     @Override

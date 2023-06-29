@@ -59,13 +59,13 @@ public class Teacher implements Serializable {
     }
 
     public String getLocation() {
-        if(getSpecialLocation()==true){
+        if(getSpecialLocation()){
         return location;}
         return getActualLocation();
     }
 
     public void setLocation(String location) {
-        if(getSpecialLocation()==false){
+        if(!getSpecialLocation()){
             throw new RuntimeException("Please change SpecialLocation to true before changes");
         }
         this.location = location;
